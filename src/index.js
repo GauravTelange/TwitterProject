@@ -21,8 +21,8 @@ app.listen(3000, async() => {
     const tweetRepo = new TweetRepository();
   
     
-    const tweet = await tweetRepo.getWithComments('69e20379237f29b8567d771a');
-  
+    const tweet = await tweetRepo.create({content: 'with hooks now'});
+   
     console.log(tweet);
     
     
