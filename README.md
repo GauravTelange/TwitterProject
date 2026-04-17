@@ -20,4 +20,4 @@
 - Pagination on tweets
 - User auth
 
-- Evert tweet might be having a hastag.
+- Evert tweet might be having a hashtag.

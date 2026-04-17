@@ -8,22 +8,11 @@ const Comment = require('./models/comment');
 
 app.listen(3000, async() => {
     console.log('Server Started on Port : 3000');
-    
 
     //connection mongodb
     await connect();
     console.log('Mongodb Connected');
     
-    // const tweet = await Tweet.create({
-    //     content : 'second Tweet',
-    //     userEmail: "gt@gmail.com"
-    // });
-    const tweetRepo = new TweetRepository();
-  
-    
-    const tweet = await tweetRepo.create({content: 'with hooks now'});
-   
-    console.log(tweet);
     
     
 });

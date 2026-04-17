@@ -24,7 +24,7 @@ class TweetRepository{
 
         async getWithComments(id){
             try {
-                const tweet = await Tweet.findById(id).populate('comments');
+                const tweet = await Tweet.findById(id).populate({path:'comments'}).lean();
                 return tweet;
                 
             } catch (error) {
