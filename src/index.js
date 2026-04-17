@@ -3,9 +3,9 @@ const connect = require('./config/database');
 const app = express();
 
 const TweetRepository = require('./repository/tweet-repository');
-const Comment = require('./models/comment');
+const Tweet = require('./models/tweet');
 
-
+ 
 app.listen(3000, async() => {
     console.log('Server Started on Port : 3000');
 
@@ -13,6 +13,12 @@ app.listen(3000, async() => {
     await connect();
     console.log('Mongodb Connected');
     
+    const tweets = await Tweet.find({
+        content: ["First Tweet" , "Gaurav Telange", "SMit"]
+        
+    });
+
+    console.log(tweets);
     
     
 });
