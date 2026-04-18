@@ -24,23 +24,23 @@ app.listen(3000, async() => {
     await connect();
     console.log('Mongodb Connected');
 
-     const userRepo = new UserRepository();
-    const tweetRepo = new TweetRepository();
+//      const userRepo = new UserRepository();
+//     const tweetRepo = new TweetRepository();
 
-    const tweets =  await tweetRepo.getAll(0, 10);
+//     const tweets =  await tweetRepo.getAll(0, 10);
 
-    const users = await userRepo.getAll();
+//     const users = await userRepo.getAll();
    
-    const likeService = new LikeService();
+//     const likeService = new LikeService();
 
     
-   console.log("Passing Tweet ID:", tweets[0]?._id);
-console.log("Passing User ID:", users[0]?._id);
+//    console.log("Passing Tweet ID:", tweets[0]?._id);
+// console.log("Passing User ID:", users[0]?._id);
 
-// const isAdded = await likeService.toggleLike(tweets._id, 'Tweet', users._id);
+// // const isAdded = await likeService.toggleLike(tweets._id, 'Tweet', users._id);
 
 
-await likeService.toggleLike(tweets[0]._id, 'Tweet', users[0]._id);
+// await likeService.toggleLike(tweets[0]._id, 'Tweet', users[0]._id);
 
    
     
