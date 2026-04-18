@@ -19,11 +19,7 @@ app.listen(3000, async() => {
     //connection mongodb
     await connect();
     console.log('Mongodb Connected');
-    
-    let ser= new service();
-
-    await ser.create({content: 'It was a #GREAT #DAY'});
-
+   
    
     
     
