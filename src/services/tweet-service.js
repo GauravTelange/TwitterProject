@@ -11,12 +11,16 @@ class TweetService {
         const tags = content.match(/#[a-zA-Z0-9_]+/g).map((tag) => tag.substring(1)); //regex extract hashtags
         const tweet = await this.tweetRepository.create(data);
         let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
-        alreadyPresentTags = alreadyPresentTags.map(tags => tags.title);
-        let newTags = tags.filter(tag => !alreadyPresentTags.includes(tag));
+        let titleofPresentTags = alreadyPresentTags.map(tags => tags.title);
+        let newTags = tags.filter(tag => !titleofPresentTags.includes(tag));
         newTags = newTags.map(tag => {
             return {title: tag, tweets: [tweet.id]}
          });
-        const response = await this.hashtagRepository.bulkCreate(newTags);
+         await this.hashtagRepository.bulkCreate(newTags);
+        alreadyPresentTags.forEach((tag) => {
+            tag.tweets.push(tweet.id);
+            tag.save();
+        })
         return tweet;
          
 
