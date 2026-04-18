@@ -14,7 +14,7 @@ app.listen(3000, async() => {
     
     let ser= new service();
 
-    await ser.create({content: 'Done with #refactor'});
+    await ser.create({content: 'It was a #GREAT #DAY'});
 
    
     
