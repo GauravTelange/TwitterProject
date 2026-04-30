@@ -1,39 +1,57 @@
-import {TweetRepository, HashtagRepository} from '../repository/index.js';
+// 
+import TweetService from "../services/tweet-service.js";
+import upload from '../config/file-upload-s3-config.js';
 
-class TweetService {
-    constructor(){
-        this.tweetRepository = new TweetRepository();
-        this.hashtagRepository = new HashtagRepository();
-    }
+const singleUploader = upload.single('image');
 
-    async create(data) {
-        const content = data.content;
-        
-        const tags = content.match(/#[a-zA-Z0-9_]+/g);//this regex extracts the hashtags
-        tags = tags.map((tag) => tag.substring(1).toLowerCase());
-                        
+const tweetService = new TweetService();
 
-        const tweet = await this.tweetRepository.create(data);
-        let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
-        let titleofPresentTags = alreadyPresentTags.map(tags => tags.title);
-        let newTags = tags.filter(tag => !titleofPresentTags.includes(tag));
-        newTags = newTags.map(tag => {
-            return {title: tag, tweets: [tweet.id]}
-         });
-         await this.hashtagRepository.bulkCreate(newTags);
-        alreadyPresentTags.forEach((tag) => {
-            tag.tweets.push(tweet.id);
-            tag.save();
-        })
-        return tweet;
-         
+export const createTweet = async (req, res) => {
+    try {
+        singleUploader(req, res, async function (err){
+            if(err){
+                return res.status(500).json({error: err});
+            }
 
-    }
+            const payload = {...req.body};
+            // image upload disabled temporarily
+            // payload.image = req.file.location;
 
-    async get(tweetId) {
-        const tweet = await this.tweetRepository.getWithComments(tweetId);
-        return tweet;
+            const response = await tweetService.create(payload);
+            return res.status(201).json({
+                success: true, 
+                message: 'Successfully created a new tweet',
+                data: response,
+                err: {}
+            });
+        }); 
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            data: {},
+            err: error
+        });
     }
 }
 
-export default TweetService;
+export const getTweet = async (req, res) => {
+    try {
+        const response = await tweetService.get(req.params.id);
+        return res.status(200).json({
+            success: true, 
+            message: 'Successfully fetched a tweet',
+            data: response,
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            data: {},
+            err: error
+        });
+    }
+}
