@@ -1,12 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-
+import dotenv from 'dotenv';
 
 import {connect} from './config/database.js';
 import { passportAuth } from './config/jwt-middleware.js'
 import apiRoutes from './routes/index.js';
 
+import service from './services/tweet-service.js';
 
 const app = express();
 
@@ -20,11 +21,10 @@ passportAuth(passport);
 
 app.use('/api',apiRoutes);
 
-import service from './services/tweet-service.js';
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(3000, async() => {
+app.listen(PORT, async() => {
     console.log('Server Started on Port : 3000');
 
     //connection mongodb
