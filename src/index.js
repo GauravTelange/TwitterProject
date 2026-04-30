@@ -18,7 +18,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(passport.initialize());
 passportAuth(passport);
 
-
+// Add this line before app.use('/api', apiRoutes);
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Twitter API is live! 🚀',
+        version: '1.0.0',
+        author: 'Gaurav Telange',
+        github: 'https://github.com/GauravTelange/TwitterProject',
+        endpoints: {
+            tweets: '/api/v1/tweets',
+            likes: '/api/v1/likes',
+            comments: '/api/v1/comments'
+        }
+    });
+});
 app.use('/api',apiRoutes);
 
 
