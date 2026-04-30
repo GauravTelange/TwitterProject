@@ -1,9 +1,9 @@
-import { TweetRepository, HashTagRepository } from '../repository/index.js';
+import { TweetRepository, HashtagRepository } from '../repository/index.js';
 
 class TweetService {
   constructor(){
     this.tweetRepository = new TweetRepository();
-    this.hashTagRepository = new HashTagRepository();
+    this.hashTagRepository = new HashtagRepository();
   }
 
   async create(data){
