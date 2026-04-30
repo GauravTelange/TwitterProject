@@ -22,6 +22,7 @@ app.use('/api',apiRoutes);
 
 import service from './services/tweet-service.js';
 
+const PORT = process.env.PORT || 3000;
 
 app.listen(3000, async() => {
     console.log('Server Started on Port : 3000');
