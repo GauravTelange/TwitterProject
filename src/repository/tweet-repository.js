@@ -44,24 +44,6 @@ class TweetRepository extends CrudRepository {
     }
 }
 
-class HashTagRepository {
-    async findByName(tags){
-        try {
-            const hashtags = await Hashtag.find({ title: { $in: tags } });
-            return hashtags;
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
-    async bulkCreate(tags){
-        try {
-            const hashtags = await Hashtag.insertMany(tags);
-            return hashtags;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-}
 
-export { TweetRepository, HashTagRepository };
+export default TweetRepository;
